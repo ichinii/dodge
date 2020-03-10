@@ -50,13 +50,33 @@ function vec2_mt:rotate(angle)
 			self.x * sn + self.y * cs)
 end
 
+function vec2_mt:div()
+	return self.x / self.y
+end
+
+function vec2_mt:min(v)
+	if type(v) == "table"
+	then return vec2(math.min(self.x, v.x), math.min(self.y, v.y))
+	else return math.min(self.x, self.y) end
+end
+
+function vec2_mt:max(v)
+	if type(v) == "table"
+	then return vec2(math.max(self.x, v.x), math.max(self.y, v.y))
+	else return math.max(self.x, self.y) end
+end
+
 function vec2_mt:__tostring()
-	return ("(%g | %g)"):format(self.x, self.y)
+	return ("(%g | %g)"):format(self:tuple())
+end
+
+function vec2_mt:tuple()
+	return self.x, self.y
 end
 
 setmetatable( vec2, {
-	__call = function( V, x ,y )
-		return setmetatable( {x = x or 0, y = y or 0}, vec2_mt )
+	__call = function( V, x, y )
+		return setmetatable( {x = x or 0, y = y or x or 0}, vec2_mt )
 	end
 } )
 
