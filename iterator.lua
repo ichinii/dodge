@@ -28,7 +28,13 @@ end
 
 -- remove elements
 function it_mt:filter(f)
-	
+	return iterator(function()
+		local v = {self()}
+		while table.getn(v) > 0 and f(iterator(inext(), v):tuple()) do
+			v = {self()}
+		end
+		return iterator(inext(), v):tuple()
+	end)
 end
 
 -- transform elements
@@ -76,10 +82,20 @@ function it_mt:product(it)
 	end)
 end
 
+function it_mt:fork()
+	local t = self:table()
+	return iterator(inext(), t), iterator(inext(), t)
+end
+
 function it_mt:combine(it)
-	local this = self
-	local a = 0
-	local b = 0
+	local this
+	if not it then
+		this, it = self:fork()
+	else
+		this = self
+	end
+	local a
+	local b
 	local cycles = 0
 
 	it = it:cycle(function()
