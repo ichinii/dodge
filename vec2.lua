@@ -66,6 +66,14 @@ function vec2_mt:max(v)
 	else return math.max(self.x, self.y) end
 end
 
+function vec2_mt:abs()
+	return vec2(math.abs(self.x), math.abs(self.y))
+end
+
+function vec2_mt:mix(v, n)
+	return self * n + v * math.max(0, 1 - n)
+end
+
 function vec2_mt:__tostring()
 	return ("(%g | %g)"):format(self:tuple())
 end

@@ -20,4 +20,16 @@ function love.draw()
 
 	love.graphics.setColor(vec3(.2, .4, .7):tuple())
 	love.graphics.circle('fill', player_pos.x, player_pos.y, .5)
+
+	forward(traps):each(function(trap) trap:draw() end)
+end
+
+function draw_stepmove_trap(trap)
+	love.graphics.setColor(vec3(.7, .2, .4):tuple())
+	love.graphics.rectangle('fill', trap.pos.x - .5, trap.pos.y - .5, 1, 1)
+end
+
+function draw_crossmove_trap(trap)
+	love.graphics.setColor(vec3(.1, .5, .4):tuple())
+	love.graphics.rectangle('fill', trap.pos.x - .5, trap.pos.y - .5, 1, 1)
 end
