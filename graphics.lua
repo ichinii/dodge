@@ -21,7 +21,7 @@ function love.draw()
 	love.graphics.setColor(vec3(.2, .4, .7):tuple())
 	love.graphics.circle('fill', player_pos.x, player_pos.y, .5)
 
-	forward(traps):each(function(trap) trap:draw() end)
+	iterator(inext(), traps):each(function(trap) trap:draw() end)
 end
 
 function draw_stepmove_trap(trap)

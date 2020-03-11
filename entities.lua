@@ -3,7 +3,7 @@ require 'iterator'
 require 'graphics'
 
 function axis_aligned_dir(dir)
-		return math.abs(dir.x) < math.abs(dir.y) and vec2(0, dir.y) or vec2(dir.x, 0)
+	return math.abs(dir.x) < math.abs(dir.y) and vec2(0, dir.y) or vec2(dir.x, 0)
 end
 
 function stepmove_trap(pos)

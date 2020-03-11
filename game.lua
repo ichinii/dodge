@@ -1,6 +1,7 @@
 require 'vec2'
 require 'keyboard'
 require 'entities'
+require 'physics'
 
 function reset_game()
 	player_pos = vec2(1.5, 1.5)
@@ -25,5 +26,5 @@ function love.update(dt)
 	local speed = .1
 	player_pos = player_pos + dir * speed
 
-	forward(traps):each(function(trap) trap:update(dt) end)
+	iterator(inext(), traps):each(function(trap) trap:update(dt) end)
 end
