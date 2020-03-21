@@ -39,7 +39,12 @@ end
 
 -- transform elements
 function it_mt:map(f)
-
+	return iterator(function()
+		local v = {self()}
+		if table.getn(v) > 0 then
+			return f(iterator(inext(), v):tuple())
+		end
+	end)
 end
 
 -- keys only
@@ -68,12 +73,11 @@ end
 
 -- product of 2 iterators
 function it_mt:product(it)
-	local this = self
 	local a = 0
 	local b = 0
 
 	it = it:cycle(function()
-		a = this()
+		a = self()
 	end)
 
 	return iterator(function()
@@ -120,8 +124,39 @@ function it_mt:cycle(roundf)
 	end)
 end
 
-function it_mt:fold(f)
+function it_mt:cycle_round()
+	local t = self:table()
+	local index = 0
+	return iterator(function()
+		index = index <= table.getn(t) and index + 1 or 1
+		return t[index]
+	end)
+end
 
+function it_mt:fold(f)
+	local r = r or 0
+	local v = self()
+	while v do
+		r = f(r, v)
+		v = self()
+	end
+	return r
+end
+
+-- map by 2 neighbors with full cycle
+function it_mt:map2_cycle(f)
+	local first = self()
+	local prev = first
+	return iterator(function()
+		if prev == nil then return nil end
+		local a = self()
+		local b = prev
+		prev = a
+		if a == nil
+		then return f(b, first)
+		else return f(b, a)
+		end
+	end)
 end
 
 function it_mt:flatten()
