@@ -2,7 +2,6 @@ require 'vec2'
 require 'keyboard'
 require 'entities'
 require 'physics'
-require 'player'
 
 function reset_game()
 	-- constants
@@ -10,7 +9,7 @@ function reset_game()
 
 	-- reset
 	reset_physics()
-	player = create_player1(keyboard)
+	player = create_player2(keyboard)
 
 	-- init
 	-- traps = iterator(inext(), {
@@ -23,8 +22,14 @@ function reset_game()
 	-- }):table()
 
 	walls = {
-		create_wall(vec2(12, 10), vec2(1, 5)),
-		create_wall(vec2(8, 12), vec2(3, 1))
+		create_wall(vec2(13, 10), vec2(1, 1)),
+		create_wall(vec2(13, 11), vec2(1, 1)),
+		create_wall(vec2(13, 9), vec2(1, 1)),
+		create_wall(vec2(13, 8), vec2(1, 1)),
+		create_wall(vec2(13, 7), vec2(1, 1)),
+		create_wall(vec2(8, 13), vec2(1, 1)),
+		create_wall(vec2(7, 13), vec2(1, 1)),
+		create_wall(vec2(9, 13), vec2(1, 1))
 	}
 end
 
